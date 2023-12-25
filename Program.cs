@@ -234,3 +234,11 @@ foreach(var connection in tcpConnections)
 *  ReceivedPacketsWithHeadersErrors: возвращает количество полученных IP-пакетов с ошибками в заголовке.
 *  ReceivedPacketsWithUnknownProtocol: возвращает количество IP-пакетов с неизвестным протоколом в заголовке, полученных локальным компьютером
  */
+var IPProps=IPGlobalProperties.GetIPGlobalProperties();
+var IpStats=IPProps.GetIPv4GlobalStatistics();
+Console.WriteLine($"Входящие пакеты: {IpStats.ReceivedPackets}");
+Console.WriteLine($"Исходящие пакеты: {IpStats.OutputPacketRequests}") ;
+Console.WriteLine($"Отброшено входящих пакетов:{IpStats.ReceivedPacketsDiscarded}");
+Console.WriteLine($"Отброшено исходящих пакетов: {IpStats.OutputPacketsDiscarded}") ;
+Console.WriteLine($"Ошибки фрагментации: {IpStats.PacketFragmentFailures}");
+Console.WriteLine($"Ошибки восстановления пакетов: {IpStats.PacketReassemblyFailures}") ;
