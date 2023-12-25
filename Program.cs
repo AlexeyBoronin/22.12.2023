@@ -12,6 +12,7 @@
  * public IPAddress(Long newAddress);
  */
 using System.Net;
+using System.Net.NetworkInformation;
 
 IPAddress localIp = new IPAddress(new byte[] { 127, 0, 0, 1 });
 Console.WriteLine(localIp);
@@ -147,3 +148,22 @@ foreach( var ip2 in googleIps)
 *  GetIsNetworkAvailable(): возвращает true, если доступно какое-либо сетевое подключение (статический метод)
 *  GetPhysicalAddresss(): возвращает физический адрес сетевого интерфейса
  */
+var adapter=NetworkInterface.GetAllNetworkInterfaces();
+Console.WriteLine($"Обнаружено {adapter.Length} устройств");
+foreach(NetworkInterface ad in adapter)
+{
+    Console.WriteLine("=================================");
+    Console.WriteLine();
+    Console.WriteLine($"Устройство ID -------- {ad.Id}");
+    Console.WriteLine($"Устройство имя -------- {ad.Name}");
+    Console.WriteLine($"Описание: ---------{ad.Description}");
+    Console.WriteLine($"Тип интерфейса: ---------{ad.NetworkInterfaceType}");
+    Console.WriteLine($"Тип интерфейса: ---------{ad.NetworkInterfaceType}");
+    Console.WriteLine($"Физический адрес: ---------{ad.GetPhysicalAddress()}");
+    Console.WriteLine($"Статус: ---------- {ad.OperationalStatus}");
+    Console.WriteLine($"Скорость: ------{ad.Speed}");
+    IPInterfaceStatistics stats=ad.GetIPStatistics();
+    Console.WriteLine($"Получено: ---------------{stats.BytesReceived}");
+    Console.WriteLine($"Отправлено: ---------------{stats.BytesSent}");
+
+}
