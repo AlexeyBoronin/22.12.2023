@@ -167,3 +167,70 @@ foreach(NetworkInterface ad in adapter)
     Console.WriteLine($"Отправлено: ---------------{stats.BytesSent}");
 
 }
+//Получение информации о всех подключениях
+/* GetActiveTcpConnections(): возвращает сведения о TCP-подключениях (массив TcpConnectionInformation[])
+*  GetActiveTcpListeners(): возвращает массив адресов TCP-слушателей (массив IPEndPoint[])
+*  GetActiveUdpListeners(): возвращает массив адресов UDP-слушателей (массив IPEndPoint[]).
+*  GetIcmpV4Statistics(): возвращает статистику протокола ICMPv4 (объект IcmpV4Statistics)
+*  GetIcmpV6Statistics(): возвращает статистику протокола ICMPv6 (объект IcmpV6Statistics)
+*  GetIPv4GlobalStatistics(): возвращает статистику протокола IPv4 (объект IPGlobalStatistics)
+*  GetIPv6GlobalStatistics(): возвращает статистику протокола IPv6 (объект IPGlobalStatistics)
+*  GetIPGlobalProperties(): возвращает объект IPGlobalProperties, который предоставляет информацию по сетевой 
+конфигурации и статистику трафика (статический метод)
+*  GetUnicastAddresses() / GetUnicastAddressesAsync(): возвращает таблицу IP-адресов одноадресной рассылки (объект UnicastIPAddressInformationCollection)
+ */
+var IpProps=IPGlobalProperties.GetIPGlobalProperties();
+var tcpConnections=IpProps.GetActiveTcpConnections();
+Console.WriteLine($"Всего {tcpConnections.Length} активных TCP-подключений");
+Console.WriteLine();
+foreach(var connection in tcpConnections)
+{
+    Console.WriteLine("============================");
+    Console.WriteLine($"Локальный адрес: {connection.LocalEndPoint.Address}:{connection.LocalEndPoint.Port}");
+    Console.WriteLine($"Адрес удаленного хоста: {connection.RemoteEndPoint.Address}:{connection.RemoteEndPoint.Port}");
+    Console.WriteLine($"Состояние подключения: {connection.State}");
+}
+/* LocalEndPoint: локальная конечная точка, через которую текущий компьютер установил TCP-подключение с удаленным хостом
+*  RemoteEndPoint: адрес удаленного хоста, с которым установлено TCP-подключение
+*  State: состояние TCP-подключения в виде одной из констант перечисления TcpState:
+*  Closed: TCP-подключение закрыто
+*  CloseWait: локальная конечная точка ТСР-подключения ожидает от локального пользователя запрос на разрыв подключения
+*  Closing: локальная конечная точка ТСР-подключения ожидает подтверждение ранее отправленного запроса на разрыв подключения
+*  DeleteTcb: удаляется буфер управления передачей (TCB) для ТСР-подключения
+*  Established: TCP-подключение установлено.
+*  FinWait1: локальная конечная точка ТСР-подключения ожидает от удаленной конечной точки запрос на разрыв подключения или подтверждение 
+ранее отправленного запроса на разрыв подключения.
+*  FinWait2: локальная конечная точка ТСР-подключения ожидает от удаленной конечной точки запрос на разрыв подключения.
+*  LastAck: локальная конечная точка ТСР-подключения ожидает окончательное подтверждение ранее отправленного запроса на разрыв подключения.
+*  Listen: локальная конечная точка ТСР-подключения прослушивает запросы на подключение
+*  SynReceived: локальная конечная точка ТСР-подключения отправила и получила запрос на подключение, и ожидает подтверждения.
+*  SynSent: локальная конечная точка ТСР-подключения отправила удаленной конечной точке заголовок сегмента с установленным управляющим битом
+синхронизации (SYN) и ожидает соответствующий запрос на подключение.
+*  TimeWait: локальная конечная точка ТСР-подключения ожидает в течение достаточного времени, чтобы обеспечить получение удаленной точкой 
+подтверждения ее запроса на разрыв подключения.
+*  Unknown: неизвестное состояние ТСР-подключения
+ */
+//Мониторинг трафика
+/* DefaultTtl: возвращает срок жизни (TTL) IP-пакетов.
+*  ForwardingEnabled: возвращает значение bool, которое указывает, разрешена ли переадресация IP-пакетов.
+*  NumberOfInterfaces: возвращает количество сетевых интерфейсов.
+*  NumberOfIPAddresses: возвращает количество IP-адресов, назначенных локальному компьютеру.
+*  NumberOfRoutes: возвращает количество маршрутов в таблице IP-маршрутизации.
+*  OutputPacketRequests: возвращает количество исходящих IP-пакетов.
+*  OutputPacketRoutingDiscards: возвращает количество маршрутов, удаленных из таблицы маршрутизации.
+*  OutputPacketsDiscarded: возвращает количество отправленных отброшенных IP-пакетов
+*  OutputPacketsWithNoRoute: возвращает количество IP-пакетов, для которых локальному компьютеру не удалось определить маршрут к адресу назначения.
+*  PacketFragmentFailures: возвращает количество IP-пакетов, которые не удалось фрагментировать.
+*  PacketReassembliesRequired: возвращает количество IP-пакетов, для которых требовалась восстановление.
+*  PacketReassemblyFailures: возвращает количество IP-пакетов, которые не были успешно восстановлены.
+*  PacketReassemblyTimeout: возвращает максимальное время, в течение которого должны поступить все фрагменты IP-пакета.
+*  PacketsFragmented: возвращает количество фрагментированных IP-пакетов.
+*  PacketsReassembled: возвращает количество собранных IP-пакетов.
+*  ReceivedPackets: возвращает количество полученных IP-пакетов.
+*  ReceivedPacketsDelivered: возвращает количество доставленных IP-пакетов.
+*  ReceivedPacketsDiscarded: возвращает количество отброшенных полученных IP-пакетов, которые были удалены.
+*  ReceivedPacketsForwarded: возвращает количество переадресованных IP-пакетов.
+*  ReceivedPacketsWithAddressErrors: возвращает количество полученных IP-пакетов с ошибками в адресе.
+*  ReceivedPacketsWithHeadersErrors: возвращает количество полученных IP-пакетов с ошибками в заголовке.
+*  ReceivedPacketsWithUnknownProtocol: возвращает количество IP-пакетов с неизвестным протоколом в заголовке, полученных локальным компьютером
+ */
