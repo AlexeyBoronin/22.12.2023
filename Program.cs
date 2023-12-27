@@ -14,7 +14,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-
+using System.Text;
 IPAddress localIp = new IPAddress(new byte[] { 127, 0, 0, 1 });
 Console.WriteLine(localIp);
 
@@ -350,6 +350,12 @@ try
 {
     await socket5.ConnectAsync(url1, port);
     Console.WriteLine($"Подключение к {url1} установлено");
+    Console.WriteLine($"Адрес подключения {socket5.RemoteEndPoint}");
+    Console.WriteLine($"Адрес приложения {socket5.LocalEndPoint}");
+    var message = $"GET / HTTP/1.1\r\nHost: {url1}\r\nConnection: close\r\n\r\n";
+    var messageBytes=Encoding.UTF8.GetBytes(message);
+    int bytesSent=await socket5.SendAsync(messageBytes);
+    Console.WriteLine($"на адрес {url1} отправлено {bytesSent} байт(а)");
 }
 catch(SocketException)
 {
