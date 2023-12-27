@@ -342,3 +342,16 @@ finally
 {
     socket4.Close();
 }
+var port = 80;
+var url1 = "www.yandex.ru";
+
+using var socket5 = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+try
+{
+    await socket5.ConnectAsync(url1, port);
+    Console.WriteLine($"Подключение к {url1} установлено");
+}
+catch(SocketException)
+{
+    Console.WriteLine($"Не удалось установить подключение к {url1}");
+}
