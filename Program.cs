@@ -242,3 +242,52 @@ Console.WriteLine($"Отброшено входящих пакетов:{IpStats.
 Console.WriteLine($"Отброшено исходящих пакетов: {IpStats.OutputPacketsDiscarded}") ;
 Console.WriteLine($"Ошибки фрагментации: {IpStats.PacketFragmentFailures}");
 Console.WriteLine($"Ошибки восстановления пакетов: {IpStats.PacketReassemblyFailures}") ;
+//Класс Socket
+/* Socket(AddressFamily, SocketType, ProtocolType): создает сокет, используя указанные семейство адресов, тип сокета и протокол.
+*  Socket(SafeSocketHandle): создает сокет с помощью дескриптора сокета - объекта SafeSocketHandle.
+*  Socket(SocketInformation): создает сокет, используя структуру SocketInformation.
+*  Socket(SocketType, ProtocolType): создает сокет, используя указанные тип сокета и протокол.
+*  
+*  Первый параметр конструктора представляет перечисление AddressFamily и задает схему адресации, которую может использовать сокет. 
+Данное перечисление содержит 33 константы. Наиболее используемые:
+*  1.InterNetwork: адрес по протоколу IPv4
+*  2.InterNetworkV6: адрес по протоколу IPv6
+*  3.Ipx: адрес IPX или SPX
+*  4.NetBios: адрес NetBios
+*  Второй параметр представляет перечисление SocketType, которое устанавливает тип сокета. Может принимать следующие значения:
+*  1.Dgram: сокет будет получать и отправлять дейтаграммы по протоколу Udp. Данный тип сокета работает в связке с типом протокола - Udp 
+и значением AddressFamily.InterNetwork
+*  2.Raw: сокет имеет доступ к нижележащему протоколу транспортного уровня и может использовать для передачи сообщений такие протоколы, как ICMP и IGMP
+*  3.Rdm: сокет может взаимодействовать с удаленными хостами без установки постоянного подключения. В случае, если отправленные сокетом сообщения невозможно 
+доставить, то сокет получит об этом уведомление
+*  4.Seqpacket: обеспечивает надежную двустороннюю передачу данных с установкой постоянного подключения
+*  5.Stream: обеспечивает надежную двустороннюю передачу данных с установкой постоянного подключения. Для связи используется протокол TCP, поэтому этот тип 
+сокета используется в паре с типом протокола Tcp и значением AddressFamily.InterNetwork
+*  6.Unknown: адрес NetBios
+*  Третий параметр представляет перечисление ProtocolType, которое устанавливает тип используемого протокола. Может принимать следующие значения:
+*  1.Ggp
+*  2.Icmp
+*  3.IcmpV6
+*  4.Idp
+*  5.Igmp
+*  6.IP
+*  7.IPSecAuthenticationHeader (Заголовок IPv6 AH)
+*  8.IPSecEncapsulatingSecurityPayload (Заголовок IPv6 ESP)
+*  9.IPv4
+*  10.IPv6
+*  11.IPv6DestinationOptions (Заголовок IPv6 Destination Options)
+*  12.IPv6FragmentHeader (Заголовок IPv6 Fragment)
+*  13.IPv6HopByHopOptions (Заголовок IPv6 Hop by Hop Options)
+*  14.IPv6NoNextHeader (Заголовок IPv6 No next)
+*  15.IPv6RoutingHeader (Заголовок IPv6 Routing)
+*  16.Ipx
+*  17.ND
+*  18.Pup
+*  19.Raw
+*  20.Spx
+*  21.SpxII
+*  22.Tcp
+*  23.Udp
+*  24.Unknown (неизвестный протокол)
+*  25.Unspecified (неуказанный протокол)
+ */
