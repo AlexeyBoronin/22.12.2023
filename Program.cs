@@ -13,6 +13,7 @@
  */
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 IPAddress localIp = new IPAddress(new byte[] { 127, 0, 0, 1 });
 Console.WriteLine(localIp);
@@ -290,4 +291,29 @@ Console.WriteLine($"Ошибки восстановления пакетов: {I
 *  23.Udp
 *  24.Unknown (неизвестный протокол)
 *  25.Unspecified (неуказанный протокол)
+ */
+Socket socket=new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+Socket socket1=new Socket(AddressFamily.InterNetwork,SocketType.Dgram, ProtocolType.Udp);
+//Свойства и методы сокета
+/* Свойства класса позволяют получить информацию о сокете. Основные свойства:
+*  AddressFamily: представляет схему адресации, используемую сокетом, в виде перечисления AddressFamily
+*  Available: возвращает объем данных, полученных от подключенного хоста и доступных для чтения
+*  Connected: возвращает true, если сокет подключен к удаленному хосту
+*  LocalEndPoint: возвращает локальную точку (объект типа EndPoint), по которой запущен сокет и по которой он принимает данные
+*  ProtocolType: возвращает тип протокола в виде значения перечисления ProtocolType
+*  RemoteEndPoint: возвращает адрес удаленного хоста, к которому подключен сокет (объект типа EndPoint)
+*  SocketType: возвращает тип сокета в виде значения перечисления SocketType
+*  
+*  При работе с сокетами вне зависимости от выбранных протоколов мы будем опираться на методы класса Socket:
+*  Accept() / AcceptAsync(): создает новый объект Socket для обработки входящего подключения
+*  Bind(): связывает объект Socket с локальной конечной точкой
+*  Close(): закрывает сокет
+*  Connect() / ConnectAsync: устанавливает соединение с удаленным хостом
+*  Listen(): начинает прослушивание входящих запросов
+*  Poll(): определяет состояние сокета
+*  Receive() / ReceiveAsync: получает данные
+*  ReceiveFrom() / ReceiveFromAsync(): получает данные и сохраняет конечную точку, от которой получены данные
+*  Send() / SendAsync(): отправляет данные
+*  SendTo() / SendToAsync(): отправляет данные на определенную конечную точку
+*  Shutdown(): блокирует на сокете прием и/или отправку данных
  */
