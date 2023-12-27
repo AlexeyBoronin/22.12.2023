@@ -317,3 +317,28 @@ Socket socket1=new Socket(AddressFamily.InterNetwork,SocketType.Dgram, ProtocolT
 *  SendTo() / SendToAsync(): отправляет данные на определенную конечную точку
 *  Shutdown(): блокирует на сокете прием и/или отправку данных
  */
+//Закрытие сокета
+Socket socket2=new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.Tcp);
+//
+//
+socket2.Close();
+using(Socket socket3=new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+{
+    //
+    //
+}
+Socket socket4=new Socket(AddressFamily.InterNetwork, SocketType.Stream,ProtocolType.Tcp);
+
+try
+{
+    socket4.Shutdown(SocketShutdown.Both);// Send, Receive
+
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex.Message );
+}
+finally
+{
+    socket4.Close();
+}
